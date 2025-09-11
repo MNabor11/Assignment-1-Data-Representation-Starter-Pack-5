@@ -1,5 +1,5 @@
 //
-// Created by Mateo on 9/10/2025.
+// Created by Mateo on 9/11/2025.
 //
 #include <math.h>
 #include <stdio.h>
@@ -27,12 +27,23 @@ void div_convert ( uint32_t n , int base , char *out ) {
     }
     out[pos] = '\0';
 }
-int main(){
-printf("Hello World");
-    char input[65];
-    uint32_t n = 156;
-    int base = 8;
-    div_convert(n,base,input);
-    printf("%s",input);
-return 0;
+void sub_convert(uint32_t n, int base, char *out) {
+    char temp[65];
+    int pos = 0;
+    uint32_t sub = 1;
+    if (n == 0) {
+        strcpy(out, "0");
+        return;
+    }
+    while (sub > 0) {
+        int digit = 0;
+        while (n >= sub) {
+            n -= sub;
+            digit++;
+        }
+        temp[pos++] = (digit < 10) ? ('0' + digit) : ('A' + digit - 10);
+        sub /= base;
+    }
+    temp[pos] = '\0';
+    strcpy(out, temp);
 }
